@@ -1,325 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Student Login - ESTCampus</title>
-  <style>
-    /* Reset & base */
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #f9a785 0%, #d86a5c 100%);
-      color: #1a1a1a;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    /* Top header bar */
-    header {
-      width: 100%;
-      background-color: #7f5a44;
-      color: #f8e9d1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.75rem 2rem;
-      font-weight: 600;
-      font-size: 1.125rem;
-      user-select: none;
-    }
-    header .logo {
-      background-color: #000;
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.9rem;
-      padding: 0.3rem 1rem;
-      border-radius: 4px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    /* Container for login + slideshow */
-    main.login-container {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 12px 20px rgba(216, 106, 92, 0.6);
-      max-width: 900px;
-      width: 90%;
-      margin: 2rem auto 3rem auto;
-      display: flex;
-      overflow: hidden;
-      min-height: 340px;
-    }
-
-    /* Login form section */
-    section.login-form {
-      flex: 1 1 45%;
-      padding: 2.5rem 2rem 2rem 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    section.login-form h2 {
-      color: #d86a5c;
-      font-weight: 700;
-      font-size: 1.8rem;
-      margin-bottom: 0.25rem;
-      border-bottom: 4px solid #f9a785;
-      width: max-content;
-      padding-bottom: 0.2rem;
-      user-select: none;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    section.login-form label {
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-top: 1.2rem;
-      user-select: none;
-      display: block;
-    }
-    section.login-form input,
-    section.login-form select {
-      margin-top: 0.3rem;
-      padding: 0.5rem 0.75rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      width: 100%;
-      transition: border-color 0.3s;
-    }
-    section.login-form input:focus,
-    section.login-form select:focus {
-      outline: none;
-      border-color: #d86a5c;
-      box-shadow: 0 0 5px rgba(216, 106, 92, 0.5);
-    }
-
-    section.login-form button {
-      margin-top: 2rem;
-      align-self: start;
-      background-color: #d86a5c;
-      border: none;
-      color: white;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 0.5rem 1.5rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      user-select: none;
-    }
-    section.login-form button:hover {
-      background-color: #b85140;
-    }
-
-    /* Slideshow area */
-    section.slideshow {
-      flex: 1 1 55%;
-      position: relative;
-      background: #fff;
-      user-select: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      padding: 1rem 0;
-    }
-    .slide-image {
-      max-width: 100%;
-      max-height: 320px;
-      object-fit: cover;
-      border-radius: 0 10px 10px 0;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.2);
-      user-select: none;
-      display: none;
-    }
-    .slide-image.active {
-      display: block;
-    }
-    .caption {
-      position: absolute;
-      bottom: 12px;
-      left: 12px;
-      color: white;
-      font-weight: 500;
-      text-shadow: 0 0 8px rgba(0,0,0,0.7);
-      font-size: 1rem;
-      user-select: none;
-      max-width: 90%;
-      display: none;
-    }
-    .caption.active {
-      display: block;
-    }
-    /* Navigation arrows */
-    .nav-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.7rem;
-      color: white;
-      cursor: pointer;
-      user-select: none;
-      background: rgba(0,0,0,0.25);
-      padding: 0.3rem 0.6rem;
-      border-radius: 50%;
-      transition: background 0.3s;
-    }
-    .nav-arrow:hover {
-      background: rgba(0,0,0,0.5);
-    }
-    .nav-arrow.left {
-      left: 8px;
-    }
-    .nav-arrow.right {
-      right: 8px;
-    }
-    /* Dots Nav */
-    .dots {
-      position: absolute;
-      bottom: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 6px;
-    }
-    .dot {
-      width: 10px;
-      height: 10px;
-      background-color: #ccc;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .dot.active {
-      background-color: #d86a5c;
-    }
-
-    /* Responsive tweaks */
-    @media (max-width: 690px) {
-      main.login-container {
-        flex-direction: column;
-        min-height: auto;
-      }
-      section.login-form, section.slideshow {
-        flex: none;
-        width: 100%;
-        border-radius: 10px;
-      }
-      section.slideshow {
-        margin-top: 1rem;
-        border-radius: 0 0 10px 10px;
-      }
-      .slide-image {
-        border-radius: 0 0 10px 10px;
-        max-height: 220px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPortal - Welcome</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+        }
+        main {
+            padding: 50px 20px;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo" aria-label="Silicon University Logo">Silicon University</div>
-    <div>SiliconTech is a Unit of Silicon University</div>
-  </header>
+    <header>
+        <h1>EduPortal</h1>
+        <p>Your Gateway to Learning</p>
+    </header>
+    
+    <main>
+        <h2>Welcome to EduPortal!</h2>
+        <p>This is the main index page. Log in or access your student dashboard to get started.</p>
+        <a href="index.html" class="btn" onclick="simulateLogin()">Go to Student Dashboard</a>
+         <a href="faculty.html" class="btn" onclick="simulateLogin()">Go to Faculty Dashboard</a>
+        <p><small>(Demo: Click the button to "log in" and view the dashboard.)</small></p>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 EduPortal. All rights reserved.</p>
+    </footer>
 
-  <main class="login-container" role="main" aria-label="Student login and image slideshow section">
-    <section class="login-form" aria-labelledby="login-header">
-      <h2 id="login-header">Login</h2>
-      <form action="Student_Dashboard.html">
-        <label for="username">USER NAME</label>
-        <input id="username" name="username" type="text" autocomplete="username" required aria-required="true">
-
-        <label for="password">PASSWORD</label>
-        <input id="password" name="password" type="password" autocomplete="current-password" required aria-required="true">
-
-        <label for="institute">INSTITUTE</label>
-        <select id="institute" name="institute" aria-required="true" required>
-          <option value="silicon University" selected>SiliconTech is a Unit of Silicon University</option>
-          <option value="silicontech">SiliconTech Sambalpur</option>
-          <option value="Silicon Trust">Silicon Trust</option>
-        </select>
-
-        <button type="submit">Sign in</button>
-      </form>
-    </section>
-
-    <section class="slideshow" aria-label="Image slideshow">
-      <img src="pic1.jpg" alt="Convocation ceremony with governor speaking on stage decorated with flowers and graduates wearing blue gowns" class="slide-image active" aria-live="polite">
-      <div class="caption active">Honourable Governor of Odisha</div>
-
-      <img src="pic3.jpg" alt="University dean handing certificate to student on stage" class="slide-image" aria-live="polite">
-      <div class="caption">Dean presenting certificate</div>
-
-      <img src="pic4.jpg" alt="Graduates throwing caps in the air in celebration" class="slide-image" aria-live="polite">
-      <div class="caption">Graduates celebrating</div>
-
-      <img src="pic5.jpg" alt="Guest speaker addressing students with audience seated in large auditorium" class="slide-image" aria-live="polite">
-      <div class="caption">Guest speaker at the ceremony</div>
-
-      <img src="pic6.jpeg" alt="Stage with university staff and floral arrangements during convocation" class="slide-image" aria-live="polite">
-      <div class="caption">University staff on stage</div>
-
-      <button class="nav-arrow left" aria-label="Previous slide" tabindex="0">❮</button>
-      <button class="nav-arrow right" aria-label="Next slide" tabindex="0">❯</button>
-
-      <div class="dots" role="tablist" aria-label="Slideshow navigation">
-        <div class="dot active" role="tab" tabindex="0" aria-selected="true" aria-label="Slide 1"></div>
-        <div class="dot" role="tab" tabindex="0" aria-selected="false" aria-label="Slide 2"></div>
-        <div class="dot" role="tab" tabindex="0" aria-selected="false" aria-label="Slide 3"></div>
-        <div class="dot" role="tab" tabindex="0" aria-selected="false" aria-label="Slide 4"></div>
-        <div class="dot" role="tab" tabindex="0" aria-selected="false" aria-label="Slide 5"></div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Slideshow JavaScript -->
-  <script>
-    const slides = document.querySelectorAll('.slide-image');
-    const captions = document.querySelectorAll('.caption');
-    const dots = document.querySelectorAll('.dot');
-    const prevBtn = document.querySelector('.nav-arrow.left');
-    const nextBtn = document.querySelector('.nav-arrow.right');
-
-    let currentSlide = 0;
-
-    function showSlide(index) {
-      if (index < 0) index = slides.length - 1;
-      if (index >= slides.length) index = 0;
-      currentSlide = index;
-
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === currentSlide);
-      });
-
-      captions.forEach((caption, i) => {
-        caption.classList.toggle('active', i === currentSlide);
-      });
-
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentSlide);
-        dot.setAttribute('aria-selected', i === currentSlide ? 'true' : 'false');
-      });
-    }
-
-    nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
-    prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
-
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => showSlide(i));
-    });
-
-    // Initialize
-    showSlide(0);
-  </script>
+    <script>
+        function simulateLogin() {
+            // Simple demo: Store a mock user session
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('studentName', 'John Doe');
+        }
+    </script>
 </body>
 </html>
