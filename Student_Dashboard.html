@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - EduPortal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        main {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .profile {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .courses, .grades {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        .btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .btn:hover {
+            background-color: #c82333;
+        }
+        @media (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Dashboard</h1>
+        <nav>
+            <a href="#" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+    
+    <main id="dashboardContent">
+        <!-- Content will be loaded via JS if logged in -->
+    </main>
+ <script>
+        // Check if user is "logged in"
+        if (!localStorage.getItem('isLoggedIn') || localStorage.getItem('isLoggedIn') !== 'true') {
+            alert('Please log in from the Student_login page.');
+            window.location.href = 'index.html';
+        } else {
+            const studentName = localStorage.getItem('studentName') || 'Student';
+            document.getElementById('dashboardContent').innerHTML = `
+                <div class="profile">
+                    <h2>Welcome, ${studentName}!</h2>
+                    <p><strong>ID:</strong> STU-12345</p>
+                    <p><strong>Email:</strong> john.doe@example.com</p>
+                    <p><strong>Enrolled Since:</strong> September 2023</p>
+                </div>
+                
+                <div class="courses">
+                    <h3>Enrolled Courses</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Instructor</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mathematics 101</td>
+                                <td>Dr. Smith</td>
+                                <td>Active</td>
+                            </tr>
+                            <tr>
+                                <td>Java</td>
+                                <td>Dr.Sam Sir</td>
+                                <td>Active</td>
+                            </tr>
+                            <tr>
+                                <td>OS</td>
+                                <td>Ms. Davis</td>
+                                <td>Active</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="grades">
+                    <h3>Grades</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Grade</th>
+                                <th>Semester</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mathematics 101</td>
+                                <td>A (95%)</td>
+                                <td>3rd</td>
+                            </tr>
+                            <tr>
+                                <td>Computer Science</td>
+                                <td>O</td>
+                                <td>3rd</td>
+                            </tr>
+                            <tr>
+                                <td>English Literature</td>
+                                <td>E</td>
+                                <td>3rd</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+      `;
+        }
+
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('studentName');
+            window.location.href = 'index.html';
+        }
+    </script>
+ 
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPortal - Welcome</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+        }
+        main {
+            padding: 50px 20px;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>EduPortal</h1>
+        <p>Your Gateway to Learning</p>
+    </header>
+    
+    <main>
+        <h2>Welcome to EduPortal!</h2>
+        <p>This is the main index page. Log in or access your student dashboard to get started.</p>
+        <a href="index.html" class="btn" onclick="simulateLogin()">Go to Student Dashboard</a>
+         <a href="faculty.html" class="btn" onclick="simulateLogin()">Go to Faculty Dashboard</a>
+        <p><small>(Demo: Click the button to "log in" and view the dashboard.)</small></p>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 EduPortal. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function simulateLogin() {
+            // Simple demo: Store a mock user session
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('studentName', 'John Doe');
+        }
+    </script>
+</body>
+</html>
